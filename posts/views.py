@@ -120,7 +120,6 @@ class ExchangeProposalCreateView(LoginRequiredMixin, CreateView):
             Post, id=sender_post_id, user=self.request.user
         )
         form.instance.sender = sender
-        form.instance.receiver = form.instance.receiver
         return super().form_valid(form)
 
 
@@ -151,16 +150,10 @@ class MyProposalsListView(LoginRequiredMixin, ListView):
         return queryset
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        queryset = ExchangeProposal.objects.filter(
-            Q(sender__user=self.request.user)
-            | Q(receiver__user=self.request.user)
-        ).select_related(
-            "sender", "receiver", "sender__user", "receiver__user"
-        )
         return {
             **super().get_context_data(**kwargs),
-            "receivers": {ep.receiver.user for ep in queryset},
-            "senders": {ep.sender.user for ep in queryset},
+            "receivers": {ep.receiver.user for ep in self.object_list},
+            "senders": {ep.sender.user for ep in self.object_list},
             "statuses": STATUS_CHOICES,
         }
 
