@@ -1,0 +1,28 @@
+<header>
+  <h1>
+    <a href="{% url "posts:posts_list" %}">Обменник</a>
+  </h1>
+  <menu class="flex">
+    <li {% if request.resolver_match.url_name == "posts_list" %}class="selected"{% endif %}>
+      <a href="{% url "posts:posts_list" %}">Главная</a>
+    </li>
+    <li {% if request.resolver_match.url_name == "my_posts" %}class="selected"{% endif %}>
+      <a href="{% url "posts:my_posts" %}">Мои объявления</a>
+    </li>
+    <li {% if request.resolver_match.url_name == "create_post" %}class="selected"{% endif %}>
+      <a href="{% url "posts:create_post" %}">Добавить объявление</a>
+    </li>
+    <li {% if request.resolver_match.url_name == "proposals" %}class="selected"{% endif %}>
+      <a href="{% url "posts:proposals" %}">Мои предложения</a>
+    </li>
+    {% if user.is_authenticated %}
+      <li>
+        <a href="{% url "posts:logout" %}">Выйти</a>
+      </li>
+    {% else %}
+      <li {% if request.resolver_match.url_name == "login" %}class="selected"{% endif %}>
+        <a href="{% url "posts:login" %}">Войти</a>
+      </li>
+    {% endif %}
+  </menu>
+</header>

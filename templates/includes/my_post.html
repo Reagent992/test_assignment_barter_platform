@@ -1,0 +1,25 @@
+<article>
+    <header>
+        {% if post.image %}
+            <img src="{{ post.image.url }}"
+                 alt="Изображение товара"
+                 width="auto"
+                 height="350">
+        {% endif %}
+        <h2>{{ post.title }}</h2>
+    </header>
+    <p>{{ post.description }}</p>
+    <ul>
+        <li>Категория: {{ post.get_category_display }}</li>
+        <li>Состояние: {{ post.get_condition_display }}</li>
+        <li>Опубликовано: {{ post.created_at }}</li>
+    </ul>
+    <footer>
+        <a href="{% url 'posts:edit_post' post.id %}">
+            <button type="button">Изменить объявление</button>
+        </a>
+        <a href="{% url "posts:delete_post" post.id %}">
+            <button type="button">Удалить объявление</button>
+        </a>
+    </footer>
+</article>

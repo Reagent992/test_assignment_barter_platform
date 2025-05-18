@@ -1,0 +1,33 @@
+<section>
+    <form method="get" action="{% url 'posts:proposals' %}">
+        <div>
+            <label for="receiver">Получатель:</label>
+            <select id="receiver" name="receiver">
+                <option value=""></option>
+                {% for receiver in receivers %}
+                    <option value="{{ receiver.id }}">{{ receiver.username }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="sender">Отправитель:</label>
+            <select id="sender" name="sender">
+                <option value=""></option>
+                {% for sender in senders %}
+                    <option value="{{ sender.id }}">{{ sender.username }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="status">Статус:</label>
+            <select id="status" name="status">
+                <option value=""></option>
+                {% for status in statuses %}
+                    <option value="{{ status.value }}">{{ status.label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit">Искать</button>
+        <a href="{% url "posts:proposals" %}" role="button">Сбросить фильтры</a>
+    </form>
+</section>

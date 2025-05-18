@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+  <section>
+    <p>Вы уверены, что хотите удалить объявление "{{ object.title }}"?</p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit">Удалить</button>
+      <a href="{% url 'posts:my_posts' %}">Отмена</a>
+    </form>
+  </section>
+{% endblock content %}

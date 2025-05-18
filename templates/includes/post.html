@@ -1,0 +1,24 @@
+<article>
+    <header>
+        {% if post.image %}
+            <img src="{{ post.image.url }}"
+                 alt="Изображение товара"
+                 width="auto"
+                 height="350">
+        {% endif %}
+        <h2>{{ post.title }}</h2>
+    </header>
+    <p>{{ post.description }}</p>
+    <ul>
+        <li>Категория: {{ post.get_category_display }}</li>
+        <li>Состояние: {{ post.get_condition_display }}</li>
+        <li>Опубликовано: {{ post.created_at }}</li>
+    </ul>
+    {% if post.user != user %}
+        <footer>
+            <a href="{% url 'posts:proposal_create' %}?post_id={{ post.id }}">
+                <button type="button">Предложить обмен</button>
+            </a>
+        </footer>
+    {% endif %}
+</article>

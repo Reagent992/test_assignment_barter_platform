@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <form method="post" class="grow">
+        {% csrf_token %}
+        <div>
+            <label for="sender_post_id">Выберите одно из ваших объявлений:</label>
+            <select name="sender_post_id" required>
+                {% for post in user.posts.all %}<option value="{{ post.id }}">{{ post.title }}</option>{% endfor %}
+            </select>
+        </div>
+        {{ form.as_p }}
+        <button type="submit">Отправить предложение</button>
+    </form>
+{% endblock content %}

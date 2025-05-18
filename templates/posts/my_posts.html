@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+      {% comment %} {% include "includes/search.html" %} {% endcomment %}
+      {% comment %} <h2>Мои объявления</h2> {% endcomment %}
+      <section>
+            {% for post in posts %}
+                  {% include "includes/my_post.html" %}
+            {% endfor %}
+      </section>
+{% endblock content %}

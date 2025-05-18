@@ -1,0 +1,24 @@
+<section>
+  <form method="get" action="{% url 'posts:posts_list' %}">
+    <div>
+      <label for="q">Поиск:</label>
+      <input type="text" id="q" name="q" placeholder="Введите ключевое слово">
+    </div>
+    <div>
+      <label for="category">Категория:</label>
+      <select id="category" name="category">
+        <option value=""></option>
+        {% for en_name, ru_name in categories %}<option value="{{ en_name }}">{{ ru_name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="condition">Состояние:</label>
+      <select id="condition" name="condition">
+        <option value=""></option>
+        {% for en_name, ru_name in conditions %}<option value="{{ en_name }}">{{ ru_name }}</option>{% endfor %}
+      </select>
+    </div>
+    <button type="submit">Искать</button>
+    <a href="{% url "posts:posts_list" %}" role="button">Сбросить фильтры</a>
+  </form>
+</section>

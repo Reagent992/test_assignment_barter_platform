@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if proposals %}
+        <ul class="grow">
+            {% for proposal in proposals %}
+                <section>
+                    {% if proposal.sender.image %}
+                        <img src="{{ proposal.sender.image.url }}"
+                             alt="Изображение товара"
+                             width="auto"
+                             height="350">
+                    {% endif %}
+                    <br>
+                    <strong>Обмен:</strong> {{ proposal.sender.title }}
+                    <br>
+                    <strong>На:</strong> {{ proposal.receiver.title }}
+                    <br>
+                    <strong>Получатель:</strong> {{ proposal.receiver.user.username }}
+                    <br>
+                    <strong>Отправитель:</strong> {{ proposal.sender.user.username }}
+                    <br>
+                    <strong>Комментарий:</strong> {{ proposal.comment }}
+                    <br>
+                    <strong>Статус:</strong> {{ proposal.get_status_display }}
+                    <br>
+                    <strong>Дата:</strong> {{ proposal.created_at|date:"d.m.Y H:i" }}
+                    <br>
+                    <menu>
+                        {% if user == proposal.receiver.user and proposal.status == 'pending' %}
+                            <li>
+                                <form method="post" action="{% url 'posts:proposal_accept' proposal.pk %}">
+                                    {% csrf_token %}
+                                    <button type="submit">Принять</button>
+                                </form>
+                            </li>
+                            <li>
+                                <form method="post" action="{% url 'posts:proposal_reject' proposal.pk %}">
+                                    {% csrf_token %}
+                                    <button type="submit">Отклонить</button>
+                                </form>
+                            </li>
+                        {% endif %}
+                    </menu>
+                </section>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нету ни одного предложения обмена.</p>
+    {% endif %}
+{% endblock content %}
+{% comment %} {% extends "base.html" %}
+{% block content %}
+    {% if proposals %}
+        <table class="center">
+            <thead>
+                <tr>
+                    <th>Обмен</th>
+                    <th>На</th>
+                    <th>Получатель</th>
+                    <th>Отправитель</th>
+                    <th>Комментарий</th>
+                    <th>Статус</th>
+                    <th>Дата</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for proposal in proposals %}
+                    <tr>
+                        <td>{{ proposal.sender.title }}</td>
+                        <td>{{ proposal.receiver.title }}</td>
+                        <td>{{ proposal.receiver.user.username }}</td>
+                        <td>{{ proposal.sender.user.username }}</td>
+                        <td>{{ proposal.comment }}</td>
+                        <td>{{ proposal.get_status_display }}</td>
+                        <td>{{ proposal.created_at|date:"d.m.Y H:i" }}</td>
+                        <td>
+                            {% if user == proposal.receiver.user and proposal.status == 'pending' %}
+                                <form method="post" action="{% url 'posts:proposal_accept' proposal.pk %}">
+                                    {% csrf_token %}
+                                    <button type="submit">👍</button>
+                                </form>
+                                <form method="post" action="{% url 'posts:proposal_reject' proposal.pk %}" class="grow">
+                                    {% csrf_token %}
+                                    <button type="submit">👎</button>
+                                </form>
+                            {% else %}
+                                <em>Нет действий</em>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Нету ни одного предложения обмена.</p>
+    {% endif %}
+{% endblock content %} {% endcomment %}

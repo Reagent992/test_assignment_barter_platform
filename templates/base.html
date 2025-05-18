@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description"
+          content="Бартерная платформа для обмена товарами и услугами.">
+    <meta name="keywords" content="бартер, обмен, платформа, товары, услуги">
+    <title>Бартерная платформа</title>
+    <link rel="stylesheet" href="https://matcha.mizu.sh/matcha.css">
+  </head>
+  <body>
+    {% include "includes/header.html" %}
+    {% if request.resolver_match.url_name == "posts_list" %}
+      <aside>
+        {% include "includes/search.html" %}
+      </aside>
+    {% elif request.resolver_match.url_name == "proposals" %}
+      <aside>
+        {% include "proposals/filter.html" %}
+      </aside>
+    {% endif %}
+    <main class="flex">
+      {% block content %}
+      {% endblock content %}
+    </main>
+    {% include "includes/pagination.html" %}
+    <footer>
+      <p>
+        © 2025 Обменник. <a href="https://github.com/Reagent992">Автор</a>
+      </p>
+    </footer>
+  </body>
+</html>
