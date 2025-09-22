@@ -76,7 +76,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 
-if os.environ.get("USE_PG"):
+if os.environ.get("USE_PG") in ("True", "true", "1", "yes"):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
