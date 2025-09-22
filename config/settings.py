@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "posts.apps.PostsConfig",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -146,3 +147,13 @@ MEDIA_ROOT = str(BASE_DIR / "media")
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+AWS_ACCESS_KEY_ID = env("MY_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = env("MY_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = env("MY_STORAGE_BUCKET_NAME")
+AWS_S3_ENDPOINT_URL = env("MY_S3_ENDPOINT_URL")
+AWS_S3_REGION_NAME = env("MY_S3_REGION_NAME")
+
+AWS_DEFAULT_ACL = "public-read"
+AWS_QUERYSTRING_AUTH = False
