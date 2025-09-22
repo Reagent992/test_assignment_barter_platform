@@ -12,6 +12,7 @@ django-stubs-ext==5.2.0
 djlint==1.36.4
 editorconfig==0.17.0
 executing==2.2.0
+gunicorn==23.0.0
 ipykernel==6.29.5
 ipython==9.2.0
 ipython-pygments-lexers==1.1.1
